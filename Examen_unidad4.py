@@ -54,7 +54,7 @@ def bg_corr(event):
         cargo_admin.delete(0, END)
         cargo_admin.config(foreground='black')
     elif texto_actual == "":
-        cargo_admin.insert(0, "Email")
+        cargo_admin.insert(0, "Cargo")
         cargo_admin.config(foreground='gray63')
 
 def validacionC(valor):
@@ -132,10 +132,10 @@ def verificacion_len111():
     cant1 = len(miNombre_str)
     cant2 = len(miMasc_str)
     cant3 = len(miAge_str)
-    cant4 = len(miAge_str)
+    cant4 = len(raza_str)
     if cant1 == 0 or cant2 == 0 or cant3 == 0 or cant4 == 0 :
-        messagebox.showwarning("ADVERTENCIA","Alguno de los campos contiene esta vacio, por favor ingrese sus datos")
-    elif cant1 < 3 and cant2 < 3 and cant3 < 3 and cant4 < 3:
+        messagebox.showwarning("ADVERTENCIA","Alguno de los campos esta vacio, por favor ingrese sus datos")
+    elif cant1 < 3 and cant2 < 3 and cant3 < 0 and cant4 < 3:
         verificacion_len2()
 
 def verificacion_len2():
@@ -149,8 +149,13 @@ def verificacion_len2():
     cant4 = len(miAge_str)
     if cant1 > 30 or cant2 > 30 or cant3 > 30 or cant4 > 30 :
         messagebox.showwarning("ADVERTENCIA","Alguno de los datos contiene más de 30 caractéres")
-    elif cant1 <= 30 and cant2 <= 30 and cant3 <= 30 and cant4 <= 30:
+    elif cant1 == 0 or cant2 == 0 or cant3 == 0 or cant4 == 0:
+        messagebox.showwarning("ADVERTENCIA","Alguno de los campos esta vacio, por favor ingrese sus datos")
+    elif cant1 <= 30 and cant1 > 2 and cant2 <= 30 and cant2 > 2 and cant3 <= 2 and cant3 > 0 and cant4 <= 30 and cant4 > 2:
         servicios()
+    else :
+        messagebox.showwarning("ADVERTENCIA","ocurrio un error inesperado, intentelo de nuevo")
+
 
 conexion = sqlite3.connect("vet.db")
 
@@ -488,7 +493,7 @@ def ubicaciones():
             raza_entry = tk.Entry(marco)
             raza_entry.grid(row=6, column=1, sticky='s', padx=(0, 10), pady=(10, 0))
             "------------boton------------"
-            submit_button = tk.Button(marco, text="Guardar ", bg="Light cyan", command=verificacion_len111)
+            submit_button = tk.Button(marco, text="Guardar ", bg="Light cyan", command=verificacion_len2)
             submit_button.grid(row=7, column=0, columnspan=2, pady=10, padx=10)
             submit_button2 = tk.Button(marco, text="Regresar", bg="Light cyan", command=ventana3.destroy)
             submit_button2.grid(row=9, column=0, columnspan=2, pady=10, padx=10)
