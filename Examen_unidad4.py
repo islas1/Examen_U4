@@ -6,11 +6,53 @@ import sqlite3
 import pymysql
 import random
 
+#nuevo
+def validate_long2(a, b):
+
+    if len(b) > 15:
+        return False
+    
+    return a.isalpha()
+
+def validate_long3(a, b):
+
+    if len(b) > 15:
+        return False
+    
+    return a.isalpha()
+
+def validate_long4(a, b):
+
+    if len(b) > 8:
+        return False
+    
+    return a.isnumeric()
+
+def validate_long5(a, b):
+
+    if len(b) > 20:
+        return False
+    
+    return a.isalpha()
+
+def validate_long6(a, b):
+
+    if len(b) > 2:
+        return False
+    
+    return a.isnumeric()
+
 def validacion_de_registro():
     if nombre_admin.get()=="Usuario" or contra_admin.get()=="Contraseña" or cargo_admin.get()=="Cargo"=="":
         messagebox.showinfo(title="AVISO", message="Algun campo sigue vacio, intente de nuevo")
     else:
         verificacion_len()
+
+def validacion_de_registro2():
+    if nombre_act2.get()=="Usuario" or contra_act2.get()=="Contraseña" or cargo_act2.get()=="Cargo"=="":
+        messagebox.showinfo(title="AVISO", message="Algun campo sigue vacio, intente de nuevo")
+    else:
+        verificacion_len222()
 
 def bg_user(event):
     texto_actual = nombre_admin.get()
@@ -30,6 +72,15 @@ def bg_user2(event):
         nombre_admin2.insert(0, "Usuario")
         nombre_admin2.config(foreground='gray63')
 
+def bg_userup(event):
+    texto_actual = nombre_act2.get()
+    if texto_actual == "Usuario":
+        nombre_act2.delete(0, END)
+        nombre_act2.config(foreground='black')
+    elif texto_actual == "":
+        nombre_act2.insert(0, "Usuario")
+        nombre_act2.config(foreground='gray63')
+
 def bg_contra(event):
     texto_actual = contra_admin.get()
     if texto_actual == "Contraseña":
@@ -38,6 +89,15 @@ def bg_contra(event):
     elif texto_actual == "":
         contra_admin.insert(0, "Contraseña")
         contra_admin.config(foreground='gray63', show=())
+
+def bg_contraup(event):
+    texto_actual = contra_act2.get()
+    if texto_actual == "Contraseña":
+        contra_act2.delete(0, END)
+        contra_act2.config(foreground='black', show="●")
+    elif texto_actual == "":
+        contra_act2.insert(0, "Contraseña")
+        contra_act2.config(foreground='gray63', show=())
 
 def bg_contra2(event):
     texto_actual = contra_admin2.get()
@@ -57,6 +117,15 @@ def bg_corr(event):
         cargo_admin.insert(0, "Cargo")
         cargo_admin.config(foreground='gray63')
 
+def bg_car(event):
+    texto_actual = cargo_act2.get()
+    if texto_actual == "Cargo":
+        cargo_act2.delete(0, END)
+        cargo_act2.config(foreground='black')
+    elif texto_actual == "":
+        cargo_act2.insert(0, "Cargo")
+        cargo_act2.config(foreground='gray63')
+
 def validacionC(valor):
     conexion = sqlite3.connect("Servicio2.db")
     pichula = conexion.execute("select * from clientes where nombre = ?", (valor, ))
@@ -70,10 +139,24 @@ def validacionC(valor):
          valid= True
          return valid
 
+def verificar_up(event):
+    letra = nombre_act2.get()
+    for i in letra:
+        if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM':
+            nombre_act2.delete(letra.index(i), letra.index(i)+1)
+
+def verificar_max(event):
+    letra = contra_entryg.get()
+    letra_str = str(letra)
+    letracant = len(letra_str)
+    for i in letra:
+        if letracant > 5 :
+            contra_entryg.delete(letra.index(i), letra.index(i)+1)
+
 def verificar_us(event):
     letra = usuario_log.get()
     for i in letra:
-        if i not in 'qwertyuiopasdfghjklzxcvbnmñ QWERTYUIOPASDFGHJKLZXCVBNM':
+        if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM':
             usuario_log.delete(letra.index(i), letra.index(i)+1)
 
 def verificar_clien(event):
@@ -103,7 +186,7 @@ def verificar_ag(event):
 def verificar_corr2(event):
         letra = contra_entryg.get()
         for i in letra:
-            if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM_1234567890':
+            if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM1234567890':
                 contra_entryg.delete(letra.index(i), letra.index(i)+1)
 
 def verificar_cargo2(event):
@@ -111,6 +194,18 @@ def verificar_cargo2(event):
     for i in letra:
         if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM':
             cargo_log.delete(letra.index(i), letra.index(i)+1)
+
+def verificar_cargoup(event):
+    letra = cargo_act2.get()
+    for i in letra:
+        if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM':
+            cargo_act2.delete(letra.index(i), letra.index(i)+1)
+
+def verificar_contraup(event):
+        letra = contra_act2.get()
+        for i in letra:
+            if i not in 'qwertyuiopasdfghjklzxcvbnmñQWERTYUIOPASDFGHJKLZXCVBNM_1234567890':
+                contra_act2.delete(letra.index(i), letra.index(i)+1)
 
 def verificacion_len():
     miNombre_str = str(nombre_admin.get())
@@ -121,9 +216,24 @@ def verificacion_len():
     cant3 = len(miCargo_str)
     if cant1 > 30 or cant2 > 30 or cant3 > 30 :
         messagebox.showwarning("ADVERTENCIA","Alguno de los datos contiene más de 30 caractéres")
+    elif cant1 <= 2 or cant2 <= 2 or cant3 <= 2 :
+        messagebox.showwarning("ADVERTENCIA","Alguno de los datos no es valido.")
     elif cant1 <= 30 and cant2 <= 30 and cant3 <= 30:
         agregar()
 
+def verificacion_len222():
+    miNombre_str = str(nombre_act2.get())
+    miContra_str = str(contra_act2.get())
+    miCargo_str = str(cargo_act2.get())
+    cant1 = len(miNombre_str)
+    cant2 = len(miContra_str)
+    cant3 = len(miCargo_str)
+    if cant1 > 30 or cant2 > 30 or cant3 > 30 :
+        messagebox.showwarning("ADVERTENCIA","Alguno de los datos contiene más de 30 caractéres")
+    elif cant1 <= 30 and cant2 <= 30 and cant3 <= 30:
+        update2()
+
+#este no sirve xd  :v
 def verificacion_len111():
     miNombre_str = str(name.get())
     miMasc_str = str(namemasc.get())
@@ -138,6 +248,7 @@ def verificacion_len111():
     elif cant1 < 3 and cant2 < 3 and cant3 < 0 and cant4 < 3:
         verificacion_len2()
 
+
 def verificacion_len2():
     miNombre_str = str(name.get())
     miMasc_str = str(namemasc.get())
@@ -146,16 +257,64 @@ def verificacion_len2():
     cant1 = len(miNombre_str)
     cant2 = len(miMasc_str)
     cant3 = len(miAge_str)
-    cant4 = len(miAge_str)
+    cant4 = len(raza_str)
     if cant1 > 30 or cant2 > 30 or cant3 > 30 or cant4 > 30 :
         messagebox.showwarning("ADVERTENCIA","Alguno de los datos contiene más de 30 caractéres")
+    elif cant1 <= 2 or cant2 <= 2 or cant3 > 2 or cant4 <= 2:
+        messagebox.showwarning("ADVERTENCIA","Por favor, ingrese un dato valido")  
     elif cant1 == 0 or cant2 == 0 or cant3 == 0 or cant4 == 0:
         messagebox.showwarning("ADVERTENCIA","Alguno de los campos esta vacio, por favor ingrese sus datos")
-    elif cant1 <= 30 and cant1 > 2 and cant2 <= 30 and cant2 > 2 and cant3 <= 2 and cant3 > 0 and cant4 <= 30 and cant4 > 2:
+    else:
         servicios()
-    else :
-        messagebox.showwarning("ADVERTENCIA","ocurrio un error inesperado, intentelo de nuevo")
 
+
+def verificacion3():
+    miNombre_str = str(name.get())
+    miMasc_str = str(namemasc.get())
+    miAge_str = str(age.get())
+    raza_str = str(raza.get())
+    nom = miNombre_str.count(" ")
+    masc = miMasc_str.count(" ")
+    ag = miAge_str.count(" ")
+    raz = raza_str.count(" ")
+    if nom >= 1 or masc >= 1 or ag >= 1 or raz >= 1 :
+        messagebox.showwarning("ADVERTENCIA","Se excedio la cantidad de espacios en algun campo, por favor ingrese solo un nombre")
+    elif nom < 1 and masc < 1 and ag < 1 and raz < 1 :
+        verificacion_len2()
+
+
+def verificacion3x2():
+    miNombre_str = str(nombre_act2.get())
+    miMasc_str = str(namemasc.get())
+    miAge_str = str(age.get())
+    raza_str = str(raza.get())
+    nom = miNombre_str.count(" ")
+    masc = miMasc_str.count(" ")
+    ag = miAge_str.count(" ")
+    raz = raza_str.count(" ")
+    if nom >= 1 or masc >= 1 or ag >= 1 or raz >= 1 :
+        messagebox.showwarning("ADVERTENCIA","Se excedio la cantidad de espacios en algun campo, por favor ingrese solo un nombre")
+    elif nom < 1 and masc < 1 and ag < 1 and raz < 1 :
+        verificacion_len2()
+
+
+def verificacion_len2x2():
+    miNombre_str = str(name.get())
+    miMasc_str = str(namemasc.get())
+    miAge_str = str(age.get())
+    raza_str = str(raza.get())
+    cant1 = len(miNombre_str)
+    cant2 = len(miMasc_str)
+    cant3 = len(miAge_str)
+    cant4 = len(raza_str)
+    if cant1 > 30 or cant2 > 30 or cant3 > 30 or cant4 > 30 :
+        messagebox.showwarning("ADVERTENCIA","Alguno de los datos contiene más de 30 caractéres")
+    elif cant1 <= 2 or cant2 <= 2 or cant3 > 2 or cant4 <= 2:
+        messagebox.showwarning("ADVERTENCIA","Por favor, ingrese un dato valido")  
+    elif cant1 == 0 or cant2 == 0 or cant3 == 0 or cant4 == 0:
+        messagebox.showwarning("ADVERTENCIA","Alguno de los campos esta vacio, por favor ingrese sus datos")
+    else:
+        servicios()
 
 conexion = sqlite3.connect("vet.db")
 
@@ -171,6 +330,7 @@ def validacionB(valor):
          valid= True
          return valid
 
+
 def validacion(valor):
     pichula = conexion.execute("select nombre from admins where nombre = ?", (valor, ))
     valid = False
@@ -184,6 +344,7 @@ def validacion(valor):
          valid= True
          return valid
     
+
 def validacion2(valor):
     valid = False
     pichula = conexion.execute("select contraseña from admins where contraseña = ?", (valor, ))
@@ -195,9 +356,15 @@ def validacion2(valor):
          valid= True
          return valid
 
+
 def limite(a):
     if len(a.get()) > 0:
         a.set(a.get()[:25])
+
+def limitej(a):
+    if len(a.get()) > 0:
+        a.set(a.get()[:8])
+
 
 def limite9(a):
     if len(a.get()) > 0:
@@ -234,11 +401,14 @@ def conectar_db():
 
 #Funcion para la ventana de eleccion del usuario
 def eleccion_usuario():
+    global bandera1
     ventana1 = tk.Tk()
+    bandera1 = False
     ventana1.configure(bg="beige")
     ventana1.resizable(width=False,height=False)
     #ventana1.iconbitmap("pet.ico")
     ventana1.title("Login cliente",)
+    iniciar_usuario1.config(state="disable")
     ventana1.configure(padx=100)
     mi_label5 = tk.Label(ventana1,
                         text="  Bienvenido a Pet World  ",
@@ -261,6 +431,9 @@ def eleccion_usuario():
     una amplia variedad de enfermedades y dolencias.  """,
                         bg="beige")
     mi_label7.pack()
+    def cierre2():
+        ventana1.destroy()
+        iniciar_usuario1.config(state="normal")
     tk.Label(ventana1, text="  ", bg="beige",
           fg="black", width="20", height="1", font=("Bahnschrift", 15)).pack()
     mi_label8 = tk.Label(ventana1,
@@ -269,8 +442,13 @@ def eleccion_usuario():
     mi_label8.pack()
     iniciar_Cliente = tk.Button(ventana1, text="Registrar", command=ubicaciones)
     iniciar_Cliente.pack(padx=40, pady=40)
-    regresar = tk.Button(ventana1, text="Regresar", command=ventana1.destroy)
+    regresar = tk.Button(ventana1, text="Regresar", command=cierre2)
     regresar.pack(padx=40, pady=40)
+    global err4 
+    err4 = regresar
+    global boton1
+    boton1 = iniciar_Cliente
+    ventana1.protocol("WM_DELETE_WINDOW", cierre2)
 
 conectar_db()
 
@@ -346,7 +524,7 @@ def elec_serv():
         consulta = "SELECT * FROM clientes"
         fcursor.execute(consulta)
         datos = fcursor.fetchall()
-        print(datos)
+        #aqui borre el print(datos)
 
         fcursor.execute(base)
         db.commit()
@@ -368,16 +546,24 @@ def elec_serv():
         conexion.close()
         ventana_nuevo.destroy()
         "----------------------------------------------------------"
+        global bandera5
         ventana4 = tk.Tk()
+        bandera5 =  False
         ventana4.configure(bg="beige")
         ventana4.resizable(width=False, height=False)
         # ventana3.iconbitmap("pet.ico")
         ventana4.title("Ficha de cita", )
+        boton5.config(state="disable")
+        err5.config(state="disable")
         ventana4.configure(padx=200)
         ventana4.configure(pady=50)
         marco = LabelFrame(ventana4, text="Datos de la cita agendada", font=("Comic Sans", 10, "bold"), bg="white")
         marco.config(bd=9, pady=9)
         marco.pack()
+        def cierre6():
+            ventana4.destroy()
+            boton5.config(state="normal")
+            err5.config(state="normal")
         # Crear la etiqueta y el campo de entrada de los datos
         persona = tk.Label(marco, text="______________________________________________________________________________________________________",
                            bg="white", font=("Comic Sans", 10, "bold"))
@@ -398,6 +584,7 @@ def elec_serv():
                             text="                         ""        ""               ""      ""          ""          ""                    ""        ""                      ""  ",
                             bg="white", font=("Comic Sans", 10, "bold"))
         persona4.grid(row=4, column=0, padx=(10, 0))
+        ventana4.protocol("WM_DELETE_WINDOW", cierre6)
 
         global variable
         variable = str_nameadmin
@@ -406,7 +593,11 @@ def elec_serv():
 
 def servicios():
     #creacion de la ventana de eleccion de servicio
+    global bandera4
     ventana10 = tk.Tk()
+    bandera4 = False
+    boton2.config(state="disable")
+    err2.config(state="disable")
     ventana10.title("Eleccion de servicios")
     ventana10.geometry("500x400")
     ventana10.config(bg="beige")
@@ -424,6 +615,10 @@ def servicios():
     tk.Label(ventana10, text="""Servicio Medico: 
          analisis,  esterilizacion,  interventiva 
          vacunas,  radiografias o  prueba diagnostica """, bg="beige",fg="black", width="100", height="4", font=("Bahnschrift", 10)).pack()
+    def cierre5():
+        ventana10.destroy()
+        boton2.config(state="normal")
+        err2.config(state="normal")
 
     # Crear campos de entrada
     marco2 = LabelFrame(ventana10, text="", font=("Comic Sans", 10, "bold"), bg="beige")
@@ -435,11 +630,16 @@ def servicios():
     servi_entry.grid(row=0, column=1,sticky='s', padx=(0, 10), pady=(10, 0))
     iniciar_sesion = tk.Button(ventana10, text="Siguiente",command=elec_serv)
     iniciar_sesion.pack(padx=20, pady=20)
-    salir = tk.Button(ventana10, text="Regresar", command=ventana10.destroy)
+    salir = tk.Button(ventana10, text="Regresar", command=cierre5)
     salir.pack()
+    ventana10.protocol("WM_DELETE_WINDOW", cierre5)
 
+    global err5
+    err5 = salir
     global serv
     serv = servi_entry
+    global boton5
+    boton5 = iniciar_sesion
 
     ventana10.mainloop()
 
@@ -456,7 +656,11 @@ def ubicaciones():
             messagebox.showerror("Dato erroneo","La direccion ingresada no es válida")
         else:
             conexion = sqlite3.connect("Servicio2.db")
+            iniciar_sesion.config(state="disable")
+            err3.config(state="disable")
+            global bandera3
             ventana3 = tk.Tk()
+            bandera3 = False
             ventana3.configure(bg="beige")
             ventana3.resizable(width=False, height=False)
             #ventana3.iconbitmap("pet.ico")
@@ -466,18 +670,22 @@ def ubicaciones():
             marco = LabelFrame(ventana3, text="Datos Generales", font=("Comic Sans", 10, "bold"), bg="beige")
             marco.config(bd=2,pady=5)
             marco.pack()
+            def cierre4():
+                ventana3.destroy()
+                iniciar_sesion.config(state="normal")
+                err3.config(state="normal")
             # Crear la etiqueta y el campo de entrada de los datos
             persona = tk.Label(marco,text="datos del ciente", bg="beige", font=("Comic Sans", 10, "bold"))
             persona.grid(row=0, column=0, padx=(10, 0))
             "---------------edad-------------"
             age_label = tk.Label(marco, text="Edad:", bg="beige", font=("Comic Sans", 10, "bold"))
             age_label.grid(row=1, column=0, padx=(10, 0))
-            age_entry = tk.Entry(marco)
+            age_entry = tk.Entry(marco,validate="key", validatecommand=(ventana3.register(validate_long6), "%S", "%P"))
             age_entry.grid(row=1, column=1,sticky='s', padx=(0, 10), pady=(10, 0))
             "-------------nombre-------------"
             name_label = tk.Label(marco, text="Nombre  :", bg="beige", font=("Comic Sans", 10, "bold"))
             name_label.grid(row=2, column=0, padx=(10, 0))
-            name_entry = tk.Entry(marco)
+            name_entry = tk.Entry(marco,validate="key", validatecommand=(ventana3.register(validate_long5), "%S", "%P"))
             name_entry.grid(row=2, column=1, sticky='s', padx=(0, 10), pady=(10, 0))
             "------------separacion--------------"
             mascota = tk.Label(marco, text="datos de la mascota", bg="beige", font=("Comic Sans", 10, "bold"))
@@ -485,25 +693,26 @@ def ubicaciones():
             "-------------nombre_masc-------------"
             namemasc_label = tk.Label(marco, text="Nombre:", bg="beige", font=("Comic Sans", 10, "bold"))
             namemasc_label.grid(row=5, column=0, padx=(10, 0))
-            namemasc_entry = tk.Entry(marco)
+            namemasc_entry = tk.Entry(marco,validate="key", validatecommand=(ventana3.register(validate_long5), "%S", "%P"))
             namemasc_entry.grid(row=5, column=1,sticky='s', padx=(0, 10), pady=(10, 0))
             "---------------raza-------------"
             raza_label = tk.Label(marco, text="Raza:", bg="beige", font=("Comic Sans", 10, "bold"))
             raza_label.grid(row=6, column=0, padx=(10, 0))
-            raza_entry = tk.Entry(marco)
+            raza_entry = tk.Entry(marco,validate="key", validatecommand=(ventana3.register(validate_long5), "%S", "%P"))
             raza_entry.grid(row=6, column=1, sticky='s', padx=(0, 10), pady=(10, 0))
             "------------boton------------"
-            submit_button = tk.Button(marco, text="Guardar ", bg="Light cyan", command=verificacion_len2)
+            submit_button = tk.Button(marco, text="Guardar ", bg="Light cyan", command=verificacion3)
             submit_button.grid(row=7, column=0, columnspan=2, pady=10, padx=10)
-            submit_button2 = tk.Button(marco, text="Regresar", bg="Light cyan", command=ventana3.destroy)
+            submit_button2 = tk.Button(marco, text="Regresar", bg="Light cyan", command=cierre4)
             submit_button2.grid(row=9, column=0, columnspan=2, pady=10, padx=10)
 
-            name_entry.bind("<KeyRelease>", verificar_clien)
-            age_entry.bind("<KeyRelease>", verificar_ag)
-            namemasc_entry.bind("<KeyRelease>", verificar_masc)
-            raza_entry.bind("<KeyRelease>", verificar_raza)
+            ventana3.protocol("WM_DELETE_WINDOW", cierre4)
 
             #creamos las variables globales
+            global err2
+            err2 = submit_button2
+            global boton2
+            boton2 = submit_button
             global name
             name = name_entry
             global age
@@ -518,9 +727,13 @@ def ubicaciones():
             ventana3.mainloop
             
     #creacion de la ventana de eleccion de servicio
+    global bandera2
     ventana5 = tk.Tk()
+    bandera2 = False
     ventana5.title("Selección de ubicación")
     ventana5.geometry("500x300")
+    boton1.config(state="disable")
+    err4.config(state="disable")
     ventana5.resizable(width=False,height=False) 
     ventana5.config(bg="beige")
 
@@ -535,6 +748,10 @@ def ubicaciones():
     marco2 = LabelFrame(ventana5, text="", font=("Comic Sans", 10, "bold"), bg="beige")
     marco2.config(bd=2,pady=5)
     marco2.pack()
+    def cierre3():
+        ventana5.destroy()
+        boton1.config(state="normal")
+        err4.config(state="normal")
     # Crear la etiqueta y el campo de entrada de los datos
     persona = tk.Label(marco2,text="", bg="beige", font=("Comic Sans", 10, "bold"))
     persona.grid(row=0, column=0, padx=(10, 0))
@@ -544,9 +761,12 @@ def ubicaciones():
     #calle_entry.ggrid(row=1, column=1, padx=(0, 10), pady=(10, 0))
     iniciar_sesion = tk.Button(ventana5, text="Siguiente",command=compro)
     iniciar_sesion.pack(padx=20, pady=20)
-    salir = tk.Button(ventana5, text="Regresar", command=ventana5.destroy)
+    salir = tk.Button(ventana5, text="Regresar", command=cierre3)
     salir.pack()
-    
+    ventana5.protocol("WM_DELETE_WINDOW", cierre3)
+
+    global err3
+    err3 = salir
     global calle
     calle = calle_entry
 
@@ -623,7 +843,7 @@ def update2():
     contra_act2min = contra_act2str.lower()
     cargo_act2min = cargo_act2str.lower()
     try :
-        datos= nombre_act2min,cargo_act2min,contra_act2min
+        datos= nombre_act2min,contra_act2min,cargo_act2min
         miCursor.execute("UPDATE admins SET nombre=?, contraseña=?, cargo=? WHERE ID="+myid, (datos))
         conexion.commit()
         messagebox.showinfo("UPDATE","¡Los datos se actualizaron correctamente!")
@@ -716,6 +936,7 @@ def comprobacion():
             ventanaup = tk.Tk()
             ventanaup.resizable(width=False, height=False)
             ventanaup.configure(background="beige")
+            err9.config(state="disable")
             ventanaup.title("Update")
             ventanaup.geometry("600x350")
             juga = conexion.execute("select nombre from admins where nombre = ?", (namemin, ))
@@ -765,19 +986,35 @@ def comprobacion():
             l2.place(x=50,y=100)
             nombre_act=Entry(ventanaup, textvariable=nombre_valid, width=20)
             nombre_act.place(x=100, y=100)
+            nombre_act.insert(0,'Usuario')
+            nombre_act.bind("<FocusIn>", bg_userup)
+            nombre_act.bind("<FocusOut>", bg_userup)
+            def cierre_err9():
+                err9.config(state="normal")
 
             l3=Label(ventanaup,bg="beige", text="Cargo")
             l3.place(x=50,y=150)
             cargo_act=Entry(ventanaup, textvariable=cargo_valid)
             cargo_act.place(x=100, y=150)
+            cargo_act.insert(0,'Cargo')
+            cargo_act.bind("<FocusIn>", bg_car)
+            cargo_act.bind("<FocusOut>", bg_car)
 
             l4=Label(ventanaup,bg="beige", text="Contraseña")
             l4.place(x=280,y=125)
             contra_act=Entry(ventanaup, textvariable=contra_valid, width=20)
             contra_act.place(x=350, y=125)
+            contra_act.insert(0,'Contraseña')
+            contra_act.bind("<FocusIn>", bg_contraup)
+            contra_act.bind("<FocusOut>", bg_contraup)
 
-            b1=Button(ventanaup, text="Actualizar",command=update2)
+            b1=Button(ventanaup, text="Actualizar",command=validacion_de_registro2)  # update2
             b1.place(x=250, y=200)
+
+            nombre_act.bind("<KeyRelease>", verificar_max)
+            cargo_act.bind("<KeyRelease>", verificar_cargoup)
+            contra_act.bind("<KeyRelease>", verificar_contraup)
+            ventanaup.protocol("WM_DELETE_WINDOW", cierre_err9)
 
             global idact
             idact = filabonitax5
@@ -791,18 +1028,25 @@ def comprobacion():
             
         
     ventanacomp= tk.Tk()
+    err7.config(state="disable")
     ventanacomp.resizable(width=False, height=False)
     ventanacomp.configure(background="beige")
     #ventanaadmi3.iconbitmap("pet.ico")
     ventanacomp.title("comprobacion de datos")
     ventanacomp.geometry("600x350")
+    def cierre_err8():
+        ventanacomp.destroy()
+        err7.config(state="normal")
     tk.Label(ventanacomp, text=" Por favor ingrese su nombre de usuario ", bg="beige",
           fg="black", width="50", height="5", font=("Bahnschrift", 12)).pack()
     nombre_admin4 = tk.Entry(ventanacomp)
     nombre_admin4.place(x=240,y=80)
     b1=Button(ventanacomp, text="Verificar",command=update)
     b1.place(x=280, y=120)
+    ventanacomp.protocol("WM_DELETE_WINDOW", cierre_err8)
 
+    global err9
+    err9 = b1
     global admin5
     admin5 = nombre_admin4   
 
@@ -812,6 +1056,8 @@ def creacion_admin():
     ventanaadmin3.configure(background="beige")
     #ventanaadmi3.iconbitmap("pet.ico")
     ventanaadmin3.title("Login administrador prime")
+    boton7.config(state="disable")
+    err6.config(state="disable")
     ventanaadmin3.geometry("600x350")
     # Menu
     menubar=Menu(ventanaadmin3,bg="paleturquoise")
@@ -823,46 +1069,48 @@ def creacion_admin():
     ayudamenu.add_command(label="Acerca", command=mensaje)
     menubar.add_cascade(label="Ayuda",menu=ayudamenu)
 
+    def cierre10():
+            ventanaadmin3.destroy()
+            boton7.config(state="normal")
+            err6.config(state="normal")
+
     # widgets y entradas de texto
-    nombre_valid =StringVar()
+
     cargo_valid =StringVar()
     contra_valid =StringVar()
     nombre_entry = StringVar()
     cargo_entry = StringVar()
     contra_entry = StringVar()
 
+    nom_valid=StringVar()
+
     l2=Label(ventanaadmin3,bg="beige", text="Nombre")
-    l2.place(x=50,y=10)
-    nombre_entry=Entry(ventanaadmin3,textvariable =na, width=20,foreground="grey63")
-    nombre_entry.place(x=100, y=10)
+    nombre_entry=tk.Entry(ventanaadmin3,validate="key", validatecommand=(ventanaadmin3.register(validate_long2), "%S", "%P"), textvariable=nom_valid, width=20,foreground="grey63")
     nombre_entry.insert(0,'Usuario')
     nombre_entry.bind("<FocusIn>", bg_user)
     nombre_entry.bind("<FocusOut>", bg_user)
-    na.trace("w", lambda *args: limite(na))
+    nom_valid.trace("w", lambda *args: limitej(nom_valid))
+
     l3=Label(ventanaadmin3,bg="beige", text="Puesto")
-    l3.place(x=50,y=40)
-    cargo_entry=Entry(ventanaadmin3, textvariable =cad,foreground="grey63")
-    cargo_entry.place(x=100, y=40)
+    cargo_entry=Entry(ventanaadmin3,validate="key", validatecommand=(ventanaadmin3.register(validate_long3), "%S", "%P"), textvariable =cad,foreground="grey63")
     cargo_entry.insert(0,'Cargo')
     cargo_entry.bind("<FocusIn>", bg_corr)
     cargo_entry.bind("<FocusOut>", bg_corr)
-    cad.trace("w", lambda *args: limite(cad))
+    cad.trace("w", lambda *args: limitej(cad))
 
     l4=Label(ventanaadmin3,bg="beige", text="Contraseña")
-    l4.place(x=280,y=25)
-    contra_entry=Entry(ventanaadmin3, textvariable =ca, width=20,foreground="grey63")
-    contra_entry.place(x=350, y=25)
+    contra_entry=Entry(ventanaadmin3,validate="key", validatecommand=(ventanaadmin3.register(validate_long4), "%S", "%P"), textvariable =ca, width=20,foreground="grey63")
     contra_entry.insert(0,'Contraseña')
     contra_entry.bind("<FocusIn>", bg_contra)
     contra_entry.bind("<FocusOut>", bg_contra)
-    ca.trace("w", lambda *args: limite(ca))
+    ca.trace("w", lambda *args: limitej(ca))
 
-    contra_entry.bind("<KeyRelease>", verificar_corr2)
-    nombre_entry.bind("<KeyRelease>", verificar_us)
-    cargo_entry.bind("<KeyRelease>", verificar_cargo2)
+    #contra_entry.bind("<KeyRelease>", verificar_max)
+    #nombre_entry.bind("<KeyRelease>", verificar_us)
+    #cargo_entry.bind("<KeyRelease>", verificar_cargo2)
     
     b1=Button(ventanaadmin3, text="Crear Registro",command=validacion_de_registro)
-    b1.place(x=130, y=90)
+    b1.place(x=240  , y=90)
     b2=Button(ventanaadmin3, text="Modificar Registro", command=comprobacion)
     b2.place(x=120, y=200)
     b4=Button(ventanaadmin3, text="Eliminar Registro",bg="red",command=eliminar)
@@ -872,15 +1120,14 @@ def creacion_admin():
 
     l5=Label(ventanaadmin3,bg="beige", text="¿Desea actualizar o eliminar su usuario? de ser asi seleccione uno.")
     l5.place(x=100,y=150)
-    b5=Button(ventanaadmin3, text="Finalizar creacion de la cuenta",command=ventanaadmin3.destroy)
+    b5=Button(ventanaadmin3, text="Finalizar creacion de la cuenta",command=cierre10)
     b5.place(x=200, y=250)
-    b6=Button(ventanaadmin3, text=" Iniciar sesion con mi cuenta ",command=login_admin)
-    b6.place(x=200, y=290)
+    ventanaadmin3.protocol("WM_DELETE_WINDOW", cierre10)
 
+    global err7
+    err7 = b2
     global prueba
     prueba = nombre_entry
-    #global tree
-    #tree = tree2
     global nombre_admin
     nombre_admin = nombre_entry
     global contra_admin 
@@ -895,6 +1142,13 @@ def creacion_admin():
     ventanaaa = ventanaadmin3
     global cargo_log
     cargo_log = cargo_entry
+    #Place
+    l2.place(x=50,y=10)
+    nombre_entry.place(x=100, y=10)
+    l3.place(x=50,y=40)
+    cargo_entry.place(x=100, y=40)
+    l4.place(x=280,y=25)
+    contra_entry.place(x=350, y=25)
 
 def admin_al_cuadrado():
     ventanaadmin2 = tk.Tk()
@@ -902,24 +1156,32 @@ def admin_al_cuadrado():
     ventanaadmin2.configure(background="beige")
     #ventanaadmin2.iconbitmap("pet.ico")
     ventanaadmin2.title("Login administrador prime")
+    iniciar_cuenta1.config(state="disable")
     ventanaadmin2.configure(padx=165)
     ventanaadmin2.configure(pady=20)
+    def cierre():
+        ventanaadmin2.destroy()
+        iniciar_cuenta1.config(state="normal")
     tk.Label(ventanaadmin2, text=" Seleccione un perfil ", bg="beige",
           fg="black", width="20", height="1", font=("Bahnschrift", 15)).pack()
     #tk.Label(ventanaadmin2, text=" ", bg="beige",
     #          fg="black", width="3", height="3", font=("Bahnschrift", 15)).pack()
-    iniciar_usuario = tk.Button(ventanaadmin2, text="     INICIAR SESIÓN    ", command=login_admin)
-    iniciar_usuario.pack(padx=20, pady=20)
-    iniciar_usuario = tk.Button(ventanaadmin2, text="      CREAR CUENTA     ", command=creacion_admin)
-    iniciar_usuario.pack(padx=20, pady=20)
+    iniciar_usuario2 = tk.Button(ventanaadmin2, text="     INICIAR SESIÓN    ", command=login_admin)
+    iniciar_usuario2.pack(padx=20, pady=20)
+    iniciar_cuenta2 = tk.Button(ventanaadmin2, text="      CREAR CUENTA     ", command=creacion_admin)
+    iniciar_cuenta2.pack(padx=20, pady=20)
     tk.Label(ventanaadmin2, text=" ", bg="beige",
               fg="black", width="3", height="3", font=("Bahnschrift", 3)).pack()
-
-
+    ventanaadmin2.protocol("WM_DELETE_WINDOW", cierre)
+    global boton6
+    boton6 = iniciar_usuario2
+    global boton7
+    boton7 = iniciar_cuenta2
     # Botones
-    salir = tk.Button(ventanaadmin2, text="  Regresar  ", command=ventanaadmin2.destroy)
+    salir = tk.Button(ventanaadmin2, text="  Regresar  ", command=cierre)
     salir.pack()
-
+    global err6
+    err6 = salir
 # Este "create_admin" no funciona, no lo quito por miedo a que falle xd.
 def create_admin():
     conexion =sqlite3.connect("veterinaria.db")
@@ -964,15 +1226,17 @@ def login_admin():
             namemin = name4.lower()
             variable = str(validacionC(name4))
             variable22 = str(variable)
+            
             if variable == False :
                 messagebox.showerror("Dato erroneo","No hay cita registrada a ese nombre")
             elif variable22 == "True" :
-                ventana111 = tk.Tk()
-                ventana111.configure(bg="beige")
-                ventana111.resizable(width=False,height=False)
+                ventana1111 = tk.Tk()
+                ventana1111.configure(bg="beige")
+                ventana1111.resizable(width=False,height=False)
                 #ventana1.iconbitmap("pet.ico")
-                ventana111.title("Login cliente",)
-                ventana111.geometry("600x350")
+                ventana1111.title("Login cliente",)
+                boton9.config(state="disable")
+                ventana1111.geometry("600x350")
                 juga = conexion.execute("select nombre from clientes where nombre = ?", (name4, ))
                 juga2 = conexion.execute("select edad from clientes where nombre = ?", (name4, ))
                 juga3 = conexion.execute("select masc from clientes where nombre = ?", (name4, ))
@@ -1033,22 +1297,26 @@ def login_admin():
                 filabonitaxxxxx5 = filabonitaxxxxx4.replace(" ", "  ")
                 filabonitaxxxxx6 = filabonitaxxxxx5.replace("[", "  ")
                 filabonitaxxxxx7 = filabonitaxxxxx6.replace(",", "  ")    #ubi
-                mi_label3 = tk.Label(ventana111,
+                mi_label3 = tk.Label(ventana1111,
                         text="  Datos de la  cita agendada ",
                         bg="beige")
                 mi_label3.pack()
-                mi_label4 = tk.Label(ventana111,
+                mi_label4 = tk.Label(ventana1111,
                         text="  ",
                         bg="beige")
                 mi_label4.pack()
-                mi_label4 = tk.Label(ventana111,
+                mi_label4 = tk.Label(ventana1111,
                         text="Nombre: "+filabonita7+", Edad: "+filabonitax7+", Nombre de la mascota: "+filabonitaxx7,
                         bg="beige")
                 mi_label4.pack()
-                mi_label4 = tk.Label(ventana111,
+                mi_label4 = tk.Label(ventana1111,
                         text="Tipo de animal: "+filabonitaxxx7+", Ubicacion: "+filabonitaxxxx7+", Servicio: "+filabonitaxxxxx7,
                         bg="beige")
                 mi_label4.pack()
+                def cierre9():
+                    ventana1111.destroy()
+                    boton8.config(state="normal")
+                ventana1111.protocol("WM_DELETE_WINDOW", cierre9)
 
         conexion=sqlite3.connect("Servicio2.db")
         miCursor=conexion.cursor()
@@ -1068,6 +1336,8 @@ def login_admin():
             ventana111.resizable(width=False,height=False)
             #ventana1.iconbitmap("pet.ico")
             ventana111.title("Login cliente",)
+            err10.config(state="disable")
+            boton8.config(state="disable")
             ventana111.geometry("600x350")
             mi_label3 = tk.Label(ventana111,
                         text="  Personas con cita agendada ",
@@ -1097,8 +1367,17 @@ def login_admin():
             mi_label3.pack()
             nombre_entry=Entry(ventana111, width=20)
             nombre_entry.place(x=220, y=150)
+            def cierre8():
+                ventana111.destroy()
+                boton8.config(state="normal")
+                err10.config(state="normal")
             b5=Button(ventana111, text="Buscar cita",command=datos_finales)
             b5.place(x=220, y=250)
+
+            ventana111.protocol("WM_DELETE_WINDOW", cierre8)
+
+            global boton9
+            boton9 = b5
             global nommmm
             nommmm = nombre_entry
 
@@ -1106,6 +1385,8 @@ def login_admin():
     ventana2 = tk.Tk()
     ventana2.resizable(width=False, height=False)
     ventana2.configure(background="beige")
+    boton6.config(state="disable")
+    err6.config(state="disable")
     #ventana2.iconbitmap("pet.ico")
     ventana2.title("Login administrador")
     ventana2.geometry("600x350")
@@ -1126,16 +1407,25 @@ def login_admin():
     l4.place(x=280,y=40)
     contra_entry=Entry(ventana2, show="*", width=20)
     contra_entry.place(x=350, y=40)
+    def cierre7():
+        ventana2.destroy()
+        boton6.config(state="normal")
+        err6.config(state="normal")
     # Botones
     iniciar_sesion = tk.Button(ventana2, text="Iniciar sesión", command=comprobacion)
     iniciar_sesion.pack(padx=40, pady=40)
-    salir = tk.Button(ventana2, text="Regresar", command=ventana2.destroy)
+    salir = tk.Button(ventana2, text="Regresar", command=cierre7)
     salir.pack()
+    ventana2.protocol("WM_DELETE_WINDOW", cierre7)
 
     global nombre_admin2
     nombre_admin2 = nombre_entry
     global contra_admin2 
     contra_admin2 = contra_entry
+    global boton8
+    boton8 = iniciar_sesion
+    global err10
+    err10 = salir
 
     # Widgets
     resultado = tk.Label(ventana2, text="")
@@ -1143,6 +1433,7 @@ def login_admin():
     ventana2.mainloop()
 
 #ventana de elección de usuario
+
 ventana = Tk()
 ventana.configure(bg="beige")
 ventana.resizable(width=False, height=False)
@@ -1156,15 +1447,15 @@ tk.Label(ventana, text=" Seleccione un perfil ", bg="beige",
           fg="black", width="20", height="1", font=("Bahnschrift", 15)).pack()
 tk.Label(ventana, text=" ", bg="beige",
           fg="black", width="3", height="3", font=("Bahnschrift", 15)).pack()
-iniciar_cuenta = Tk =Button(ventana, text="Administrador", command=admin_al_cuadrado)
-iniciar_cuenta.pack(padx=20, pady=20)
-iniciar_usuario = Tk =Button(ventana, text="       Cliente      ", command=eleccion_usuario)
-iniciar_usuario.pack(padx=20, pady=20)
+iniciar_cuenta1 = Tk =Button(ventana, text="Administrador", command=admin_al_cuadrado)
+iniciar_cuenta1.pack(padx=20, pady=20)
+iniciar_usuario1 = Tk =Button(ventana, text="       Cliente      ", command=eleccion_usuario)
+iniciar_usuario1.pack(padx=20, pady=20)
 global ventana1 
 ventana1 = ventana
 # Botones
-salir = Tk =Button(ventana, text="Cerrar", command=ventana.quit)
-salir.pack()
+salir = Tk =Button(ventana, text="       Cerrar      ", command=ventana.destroy)
+salir.pack(padx=20, pady=20)
 # Widgets
 resultado = Tk =Label(ventana, text="")
 resultado.pack(pady=90)
